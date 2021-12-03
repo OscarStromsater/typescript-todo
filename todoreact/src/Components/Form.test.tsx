@@ -11,5 +11,5 @@ describe('Form test suite', () => {
     render(<Form todoListSet={stateUpdate} />);
     const formComponent = screen.getByTestId('todo-form');
     expect(formComponent).toBeInTheDocument();
-  });
+  })
 });
