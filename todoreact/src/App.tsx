@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Form from './Components/Form';
 import './App.css';
 import { Todo } from './Interfaces/Interfaces';
-import TodoCard from './Components/TodoCard';
+import TodoList from './Components/TodoList';
 
 function App() {
   const [todoList, todoListSet] = useState<Todo[]>([]);
 
+  useEffect(() => {
+      const todos = localStorage.getItem('todoList')||'[]'
+      todoListSet(JSON.parse(todos))
+  },[])
+
+  useEffect(()=> {
+    localStorage.setItem('todoList',JSON.stringify(todoList))
+  },[todoList])
+
   return (
     <main className='App' data-testid='app'>
       <Form todoListSet={todoListSet} />
-      {todoList.map((todo) => (
-        <TodoCard todo={todo} todoListSet={todoListSet} />
-      ))}
+      <TodoList todos={todoList} todoListSet={todoListSet}/>
     </main>
   );
 }

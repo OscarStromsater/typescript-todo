@@ -16,6 +16,7 @@ const Form = ({ todoListSet }: TodoFormProps) => {
     const { title, description } = input;
     const todo = new Todo(title, false, description);
     todoListSet((prevState) => [...prevState, todo]);
+    inputSet({title:'',description:''})
   };
 
   const handleInput = (e: FormEvent<HTMLInputElement>): void => {

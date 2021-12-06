@@ -9,11 +9,18 @@ const stateUpdate = (callback: (prevState: Todo[]) => Todo[]) => {
   console.log(callback);
 };
 
+
 test('renders TodoCard', () => {
   render(<TodoCard todo={urgentTodo} todoListSet={stateUpdate} />);
   const TodoComponent = screen.getByTestId('todo-card');
   expect(TodoComponent).toBeInTheDocument();
 });
+
+test('renders TodoCard with correct title & desc', ()=>{
+  render(<TodoCard todo={urgentTodo} todoListSet={stateUpdate} />);
+  const todoText = screen.getAllByText(/\b(hello|check)\b/im);
+  expect(todoText.length).toBe(2)
+})
 
 test('renders TodoCard with urgent', () => {
   const { getByTestId } = render(

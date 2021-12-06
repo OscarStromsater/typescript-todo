@@ -8,12 +8,11 @@ export class Todo {
   ) {
     this.id = Date.now();
   }
-  checkUrgent() {
-    return !!this.date;
+  static checkUrgent(todo: Todo): boolean {
+    return !!todo.date;
   }
-  toggleDone() {
-    console.log(this);
-    this.done = !this.done;
+  static toggleDone(todo: Todo): void {
+    todo.done = !todo.done;
   }
 }
 
@@ -25,3 +24,10 @@ export interface InputFields {
 export type TodoListSetFunc = (
   callback: (existingState: Todo[]) => Todo[]
 ) => void;
+
+export interface TodoTestInterface {
+  id: number;
+  title: string;
+  done: boolean;
+  description?: string;
+}

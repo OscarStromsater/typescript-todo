@@ -1,6 +1,6 @@
 import { Todo, TodoListSetFunc } from '../Interfaces/Interfaces';
 export const setUrgent = (todo: Todo): string =>
-  todo.checkUrgent() ? '--urgent' : '--active';
+  Todo.checkUrgent(todo) ? '--urgent' : '--active';
 
 interface TodoProps {
   todo: Todo;
@@ -8,9 +8,8 @@ interface TodoProps {
 }
 
 const TodoCard = ({ todo, todoListSet }: TodoProps) => {
-
   const handleToggle = () => {
-    todo.toggleDone();
+    Todo.toggleDone(todo);
     todoListSet((todoArr) =>
       todoArr.map((existingTodo) =>
         existingTodo.id === todo.id ? todo : existingTodo
@@ -19,12 +18,17 @@ const TodoCard = ({ todo, todoListSet }: TodoProps) => {
   };
 
   return (
-    <div
+    <article
       data-testid='todo-card'
       onClick={handleToggle}
-      className={`todocard${setUrgent(todo)}`}>
-      {'' + todo.done}
-    </div>
+      className={`todocard${setUrgent(todo)} todocard${
+        todo.done ? '--done' : ''
+      }`}>
+      <h2>{todo.title}</h2>
+      {todo.description && (
+        <p data-testid='todo-description'>{todo.description}</p>
+      )}
+    </article>
   );
 };
 
